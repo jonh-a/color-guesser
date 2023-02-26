@@ -1,0 +1,6 @@
+services:
+  color-guesser:
+    image: laundrybyte/color-guesser
+    ports:
+      - "3001:80"
+    restart: unless-stopped

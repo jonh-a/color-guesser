@@ -22,7 +22,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v4.3.0
         with:
-          images: laundrybyte/color-guesser
+          images: laundrybyte/color-guesser:latest
           
       - name: build & push image
         uses: docker/build-push-action@v4.0.0

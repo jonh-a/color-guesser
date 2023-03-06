@@ -13,7 +13,8 @@ const Container = styled(Box)`
   display: flex;
   justify-content: center;
   align-items: center;
-  min-width: 30em;
+  align-content: flex-start;
+  min-width: 20em;
   max-width: 50%;
   flex-wrap: wrap;
 `
@@ -23,7 +24,7 @@ const Menu = styled(Box)`
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  height: 15%;
+  height: 10%;
 `
 
 const ColorBoxes = styled(Box)`
@@ -32,7 +33,7 @@ const ColorBoxes = styled(Box)`
   align-content: flex-start;
   flex-wrap: wrap;
   width: 100%;
-  height: 50%;
+  height: 40%;
   padding-top: 1em;
   padding-bottom: 1em;
 `
@@ -65,6 +66,12 @@ const SliderBox = styled(Box)`
 const Instructions = styled(Box)`
   text-align: center;
   width: 100%;
+`
+
+const Message = styled(Box)`
+  height: 10%;
+  width: 100%;
+  text-align: center;
 `
 
 const Game = () => {
@@ -129,17 +136,27 @@ const Game = () => {
         <DifficultyMenu value={difficulty} onChange={(e) => setDifficulty(e.target.value)}>
           {Object.keys(difficulties).map((d) => <MenuItem value={d}>{d}</MenuItem>)}
         </DifficultyMenu>
-        {isActive ? <Timer time={rawTimeToHumanReadable(time)} /> : won && <p>You won in {rawTimeToHumanReadable(time)} seconds!</p>}
+        {isActive ? <Timer time={rawTimeToHumanReadable(time)} /> : won && <p>{rawTimeToHumanReadable(time)}</p>}
         <StartButton variant='outlined' onClick={() => fetchColor()}>Start</StartButton>
       </Menu>
       <ColorBoxes>
-        {!color && <Instructions><p>Match the colors using the RGB sliders at the bottom of the screen.</p></Instructions>}
+        {!color && (
+          <Instructions>
+            <p>
+              match the colors using the RGB sliders at the bottom of the screen
+            </p>
+          </Instructions>
+        )}
         {color && <ColorBox r={color.r} g={color.g} b={color.b} />}
         {color && <ColorBox r={guess.r} g={guess.g} b={guess.b} />}
       </ColorBoxes>
       <SliderBox>
         {color && <ColorSliders won={won} difficulty={difficulty} guess={guess} setGuess={setGuess} />}
       </SliderBox>
+      <Message>
+        <p>{won && `won in ${rawTimeToHumanReadable(time)} seconds!`}</p>
+        <p>{won && `rgb(${color.r}, ${color.g}, ${color.b})`}</p>
+      </Message>
     </Container>
   )
 }

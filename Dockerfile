@@ -7,7 +7,9 @@ COPY package.json package.json
 COPY package-lock.json package-lock.json
 RUN npm ci
 
-COPY . /usr/src/app
+COPY public/ public
+COPY src/ src
+COPY nginx.conf nginx.conf
 RUN npm run build
 
 FROM nginx:1.13.12-alpine

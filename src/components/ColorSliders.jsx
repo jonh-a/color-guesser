@@ -1,5 +1,20 @@
 import Slider from '@mui/material/Slider'
+import { Button, Box } from '@mui/material'
 import React from 'react'
+import styled from 'styled-components'
+
+const Container = styled(Box)`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: flex-start;
+  min-width: 20em;
+`
+
+const IntervalButton = styled(Button)`
+  width: 10%;
+`
 
 const ColorSlider = ({ interval, value, setValue, disabled }) => {
   return (
@@ -12,11 +27,11 @@ const ColorSlider = ({ interval, value, setValue, disabled }) => {
       valueLabelDisplay='auto'
       disabled={disabled}
       sx={{
-        paddingTop: '1em'
+        paddingTop: '1em',
+        width: '90%',
       }}
     />)
 }
-
 
 const ColorSliders = ({ difficulty, guess, setGuess, won }) => {
   const intervals = {
@@ -52,13 +67,23 @@ const ColorSliders = ({ difficulty, guess, setGuess, won }) => {
   return (
     <>
       {colors?.map((color) => (
-        <ColorSlider
-          interval={interval}
-          name={color?.name}
-          value={color?.value}
-          setValue={color?.setValue}
-          disabled={color?.disabled}
-        />
+        <Container>
+          <IntervalButton
+            onClick={() => color.setValue(null, color.value - interval)}
+            disabled={!color.value || color.value === 0}
+          >-</IntervalButton>
+          <ColorSlider
+            interval={interval}
+            name={color.name}
+            value={color.value}
+            setValue={color.setValue}
+            disabled={color.disabled}
+          />
+          <IntervalButton
+            onClick={() => color.setValue(null, color.value + interval)}
+            disabled={color.value === 255}
+          >+</IntervalButton>
+        </Container>
       ))}
     </>
   )

@@ -90,7 +90,6 @@ const Game = () => {
   }
 
   const fetchColor = async () => {
-
     const getRandomNumber = (interval) => Math.floor(Math.floor(Math.random() * Math.floor(255 / interval)) * interval);
     const interval = difficulties[difficulty]
     setColor({ r: getRandomNumber(interval), g: getRandomNumber(interval), b: getRandomNumber(interval) })

@@ -16,7 +16,7 @@ const IntervalButton = styled(Button)`
   width: 10%;
 `
 
-const ColorSlider = ({ interval, value, setValue, disabled }) => {
+const ColorSlider = ({ color, interval, value, setValue, disabled }) => {
   return (
     <Slider
       min={0}
@@ -29,6 +29,7 @@ const ColorSlider = ({ interval, value, setValue, disabled }) => {
       sx={{
         paddingTop: '1em',
         width: '90%',
+        color: color,
       }}
     />)
 }
@@ -71,6 +72,7 @@ const ColorSliders = ({ difficulty, guess, setGuess, won }) => {
           <IntervalButton
             onClick={() => color.setValue(null, color.value - interval)}
             disabled={!color.value || color.value === 0}
+            sx={{ color: color.color }}
           >-</IntervalButton>
           <ColorSlider
             interval={interval}
@@ -78,10 +80,12 @@ const ColorSliders = ({ difficulty, guess, setGuess, won }) => {
             value={color.value}
             setValue={color.setValue}
             disabled={color.disabled}
+            color={color.color}
           />
           <IntervalButton
             onClick={() => color.setValue(null, color.value + interval)}
             disabled={color.value === 255}
+            sx={{ color: color.color }}
           >+</IntervalButton>
         </Container>
       ))}
